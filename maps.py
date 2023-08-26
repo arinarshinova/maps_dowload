@@ -6,6 +6,7 @@ import ssl
 now = datetime.datetime.now()
 hour_now = now.hour
 print(hour_now)
+print("Hello world!")
 
 if hour_now > 15:
     prizem_t = ['00', '06']
