@@ -2,6 +2,21 @@ import urllib.request
 import datetime
 import ssl
 
+class HourDat():
+    def __init__(self, hour, isToday):
+        self.hour = hour
+        self.isToday = isToday
+
+def downloadOne(arrayHours):
+    for hourObj in arrayHours:
+        url = f'https://meteoinfo.ru/hmc-input/mapsynop/Analiz{hourObj.hour}h.png'
+        # Today or Prevday
+        dateForFileName = datetime.date.today() if hourObj.isToday else datetime.date.today() - datetime.timedelta(days=1)
+        fname = f'{dateForFileName.strftime("%d%m")}{hourObj.hour}_PR.png'
+        urllib.request.urlretrieve(url, fname)
+
+#downloadOne([HourDat('00',True)])
+
 
 now = datetime.datetime.now()
 hour_now = now.hour
@@ -15,18 +30,12 @@ if hour_now > 15:
     for i in prizem_t:
         url = f'https://meteoinfo.ru/hmc-input/mapsynop/Analiz{i}h.png'
         fname = f'{datetime.date.today().strftime("%d%m")}{i}_PR.png'
-        ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
-        with urllib.request.urlopen(url, context=ssl_context) as d, open(fname, "wb") as opfile:
-            data = d.read()
-            opfile.write(data)
+        urllib.request.urlretrieve(url, fname)
 
     for i in prizem_y:
         url = f'https://meteoinfo.ru/hmc-input/mapsynop/Analiz{i}h.png'
         fname = f'{(datetime.date.today() - datetime.timedelta(days=1)).strftime("%d%m")}{i}_PR.png'
-        ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
-        with urllib.request.urlopen(url, context=ssl_context) as d, open(fname, "wb") as opfile:
-            data = d.read()
-            opfile.write(data)
+        urllib.request.urlretrieve(url, fname)
 else:
     prizem_t = ['00']
     prizem_y = ['06', '12', '18']
@@ -34,18 +43,12 @@ else:
     for i in prizem_t:
         url = f'https://meteoinfo.ru/hmc-input/mapsynop/Analiz{i}h.png'
         fname = f'{datetime.date.today().strftime("%d%m")}{i}_PR.png'
-        ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
-        with urllib.request.urlopen(url, context=ssl_context) as d, open(fname, "wb") as opfile:
-            data = d.read()
-            opfile.write(data)
+        urllib.request.urlretrieve(url, fname)
 
     for i in prizem_y:
         url = f'https://meteoinfo.ru/hmc-input/mapsynop/Analiz{i}h.png'
         fname = f'{(datetime.date.today() - datetime.timedelta(days=1)).strftime("%d%m")}{i}_PR.png'
-        ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
-        with urllib.request.urlopen(url, context=ssl_context) as d, open(fname, "wb") as opfile:
-            data = d.read()
-            opfile.write(data)
+        urllib.request.urlretrieve(url, fname)
 
 
 if hour_now > 17:
@@ -104,10 +107,7 @@ for i in hours:
                 fname = f'{datetime.date.today().strftime("%d%m")}{i}_{int(k / 10)}.png'
             else:
                 fname = f'{datetime.date.today().strftime("%d%m")}{i}_{k}.png'
-            ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
-            with urllib.request.urlopen(url, context=ssl_context) as d, open(fname, "wb") as opfile:
-                data = d.read()
-                opfile.write(data)
+            urllib.request.urlretrieve(url, fname)
     else:
         for k in height:
             url = f'https://meteoinfo.ru/hmc-input/mapsynop/AT-{k}-{i}.png'
@@ -115,7 +115,4 @@ for i in hours:
                 fname = f'{(datetime.date.today() - datetime.timedelta(days=1)).strftime("%d%m")}{i}_{int(k / 10)}.png'
             else:
                 fname = f'{(datetime.date.today() - datetime.timedelta(days=1)).strftime("%d%m")}{i}_{k}.png'
-            ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
-            with urllib.request.urlopen(url, context=ssl_context) as d, open(fname, "wb") as opfile:
-                data = d.read()
-                opfile.write(data)
+            urllib.request.urlretrieve(url, fname)
