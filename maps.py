@@ -33,7 +33,7 @@ def downloadOneStep(arrayHours):
 # arrayHours - array object HourDto
 def downloadTwoStep(arrayHours):
     for hourObj in arrayHours:
-        url = f'http://www.meteocenter.net/circ/rotate/Analiz{hourObj.hour}.png'
+        url = f'http://www.meteocenter.net/circ/rotate/UNTT{hourObj.hour}.png'
         # Today or Prevday
         dateForFileName = datetime.date.today() if hourObj.isToday else datetime.date.today() - datetime.timedelta(days=1)
         # abs path for save img
@@ -96,7 +96,7 @@ def main():
 
     oneStep(hour_now)
     twoStep(hour_now)
-    threeStep(hour_now)
+    threeStep()
 
 
 main()
