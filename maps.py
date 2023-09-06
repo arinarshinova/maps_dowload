@@ -6,7 +6,6 @@ import ssl
 now = datetime.datetime.now()
 hour_now = now.hour
 print(hour_now)
-print("Hello world!")
 
 if hour_now > 15:
     prizem_t = ['00', '06']
@@ -15,18 +14,12 @@ if hour_now > 15:
     for i in prizem_t:
         url = f'https://meteoinfo.ru/hmc-input/mapsynop/Analiz{i}h.png'
         fname = f'{datetime.date.today().strftime("%d%m")}{i}_PR.png'
-        ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
-        with urllib.request.urlopen(url, context=ssl_context) as d, open(fname, "wb") as opfile:
-            data = d.read()
-            opfile.write(data)
+        urllib.request.urlretrieve(url,fname)
 
     for i in prizem_y:
         url = f'https://meteoinfo.ru/hmc-input/mapsynop/Analiz{i}h.png'
         fname = f'{(datetime.date.today() - datetime.timedelta(days=1)).strftime("%d%m")}{i}_PR.png'
-        ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
-        with urllib.request.urlopen(url, context=ssl_context) as d, open(fname, "wb") as opfile:
-            data = d.read()
-            opfile.write(data)
+        urllib.request.urlretrieve(url,fname)
 else:
     prizem_t = ['00']
     prizem_y = ['06', '12', '18']
@@ -34,18 +27,12 @@ else:
     for i in prizem_t:
         url = f'https://meteoinfo.ru/hmc-input/mapsynop/Analiz{i}h.png'
         fname = f'{datetime.date.today().strftime("%d%m")}{i}_PR.png'
-        ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
-        with urllib.request.urlopen(url, context=ssl_context) as d, open(fname, "wb") as opfile:
-            data = d.read()
-            opfile.write(data)
+        urllib.request.urlretrieve(url,fname)
 
     for i in prizem_y:
         url = f'https://meteoinfo.ru/hmc-input/mapsynop/Analiz{i}h.png'
         fname = f'{(datetime.date.today() - datetime.timedelta(days=1)).strftime("%d%m")}{i}_PR.png'
-        ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
-        with urllib.request.urlopen(url, context=ssl_context) as d, open(fname, "wb") as opfile:
-            data = d.read()
-            opfile.write(data)
+        urllib.request.urlretrieve(url,fname)
 
 
 if hour_now > 17:
@@ -57,8 +44,7 @@ if hour_now > 17:
 
     for i in rotate_y:
         url = f'http://www.meteocenter.net/circ/rotate/UNTT{i}.png'
-        urllib.request.urlretrieve(url,
-                                   f'{(datetime.date.today() - datetime.timedelta(days=1)).strftime("%d%m")}{i}_K.png')
+        urllib.request.urlretrieve(url,f'{(datetime.date.today() - datetime.timedelta(days=1)).strftime("%d%m")}{i}_K.png')
 elif hour_now > 15:
     rotate_t = ['00', '03', '06']
     rotate_y = ['09', '12', '15', '18', '21']
@@ -68,8 +54,7 @@ elif hour_now > 15:
 
     for i in rotate_y:
         url = f'http://www.meteocenter.net/circ/rotate/UNTT{i}.png'
-        urllib.request.urlretrieve(url,
-                                   f'{(datetime.date.today() - datetime.timedelta(days=1)).strftime("%d%m")}{i}_K.png')
+        urllib.request.urlretrieve(url,f'{(datetime.date.today() - datetime.timedelta(days=1)).strftime("%d%m")}{i}_K.png')
 elif hour_now > 13:
     rotate_t = ['00', '03']
     rotate_y = ['06', '09', '12', '15', '18', '21']
@@ -104,10 +89,7 @@ for i in hours:
                 fname = f'{datetime.date.today().strftime("%d%m")}{i}_{int(k / 10)}.png'
             else:
                 fname = f'{datetime.date.today().strftime("%d%m")}{i}_{k}.png'
-            ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
-            with urllib.request.urlopen(url, context=ssl_context) as d, open(fname, "wb") as opfile:
-                data = d.read()
-                opfile.write(data)
+            urllib.request.urlretrieve(url,fname)
     else:
         for k in height:
             url = f'https://meteoinfo.ru/hmc-input/mapsynop/AT-{k}-{i}.png'
@@ -115,7 +97,4 @@ for i in hours:
                 fname = f'{(datetime.date.today() - datetime.timedelta(days=1)).strftime("%d%m")}{i}_{int(k / 10)}.png'
             else:
                 fname = f'{(datetime.date.today() - datetime.timedelta(days=1)).strftime("%d%m")}{i}_{k}.png'
-            ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
-            with urllib.request.urlopen(url, context=ssl_context) as d, open(fname, "wb") as opfile:
-                data = d.read()
-                opfile.write(data)
+            urllib.request.urlretrieve(url,fname)
